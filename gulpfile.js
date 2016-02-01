@@ -10,9 +10,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
-var serverConfig = require('./server.config.js');
-
-
 /*
   Styles Task
 */
@@ -21,14 +18,14 @@ gulp.task('styles',function() {
   // move over fonts
 
   gulp.src('css/fonts/**.*')
-    .pipe(gulp.dest('build/css/fonts'))
+    .pipe(gulp.dest('build/css/fonts'));
 
   // Compiles CSS
   gulp.src('css/style.styl')
     .pipe(stylus())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./build/css/'))
-    .pipe(reload({stream:true}))
+    .pipe(reload({stream:true}));
 });
 
 /*
@@ -36,14 +33,14 @@ gulp.task('styles',function() {
 */
 gulp.task('images',function(){
   gulp.src('css/images/**')
-    .pipe(gulp.dest('./build/css/images'))
+    .pipe(gulp.dest('./build/css/images'));
 });
 
 /*
   Browser Sync
 */
 gulp.task('browser-sync', function() {
-    browserSync(serverConfig);
+  require('./server.js');
 });
 
 // TODO: This is not currently working correctly. It builds but then hangs on
@@ -54,7 +51,7 @@ gulp.task('scripts', function(callback) {
     gutil.log("[webpack]", stats.toString({
       colors: true
     }));
-    callback()
+    callback();
   });
 });
 

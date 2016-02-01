@@ -39,7 +39,8 @@ module.exports = {
       { test: /\.js$/, loader: 'source-map' }
     ],
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel'] }
+      { test: /\.jsx$/, exclude: /node_modules/, loaders: ['react-hot', 'babel'] },
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] }
     ]
   }
 };

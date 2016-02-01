@@ -3,16 +3,19 @@ var webpack,
     webpackHotMiddleware,
     webpackConfig,
     bundler,
-    historyApiFallback;
+    historyApiFallback,
+    browserSync;
 
 webpack = require('webpack');
 webpackDevMiddleware = require('webpack-dev-middleware');
 webpackHotMiddleware = require('webpack-hot-middleware');
 webpackConfig = require('./webpack.config');
 bundler = webpack(webpackConfig);
-historyApiFallback = require('connect-history-api-fallback')
+historyApiFallback = require('connect-history-api-fallback');
+var stripAnsi = require('strip-ansi');
+browserSync = require('browser-sync').create();
 
-module.exports = {
+browserSync.init({
   server: {
     baseDir: './',
     middleware: [
@@ -26,9 +29,10 @@ module.exports = {
       }),
       webpackHotMiddleware(bundler),
       historyApiFallback()
-    ]
+    ],
+    plugins: ['bs-fullscreen-message']
   },
   files: [
     './build/*.css'
   ]
-}
+});
