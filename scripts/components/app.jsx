@@ -15,6 +15,7 @@ export default class App extends React.Component {
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.renderFish = this.renderFish.bind(this);
+    this.addToOrder = this.addToOrder.bind(this);
   }
   render() {
     return (
@@ -25,7 +26,7 @@ export default class App extends React.Component {
             {Object.keys(this.state.fishes).map(this.renderFish)}
           </ul>
         </div>
-        <Order />
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
       </div>
     )
@@ -47,6 +48,12 @@ export default class App extends React.Component {
   }
 
   renderFish(key) {
-    return <Fish key={key} index={key} details={this.state.fishes[key]}/>
+    return <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
+  }
+
+  addToOrder(key) {
+    this.state.order[key] = this.state.order[key] + 1 || 1;
+
+    this.setState({ order: this.state.order });
   }
 };
