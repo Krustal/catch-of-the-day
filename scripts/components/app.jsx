@@ -20,6 +20,7 @@ export default class App extends React.Component {
     this.renderFish = this.renderFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentWillUpdate = this.componentWillUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,16 @@ export default class App extends React.Component {
       context: this,
       state: 'fishes'
     });
+    var localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    if(localStorageRef) {
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
   }
 
   render() {
