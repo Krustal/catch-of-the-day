@@ -4,6 +4,9 @@ import Order from './order';
 import Inventory from './inventory';
 import Fish from './fish';
 import sampleFishes from '../sample_fishes';
+import Rebase from 're-base';
+
+var base = Rebase.createClass('https://catch-of-the-day-byr.firebaseio.com/');
 
 export default class App extends React.Component {
   constructor() {
@@ -16,7 +19,16 @@ export default class App extends React.Component {
     this.loadSamples = this.loadSamples.bind(this);
     this.renderFish = this.renderFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
+
+  componentDidMount() {
+    base.syncState(`${this.props.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    });
+  }
+
   render() {
     return (
       <div className="catch-of-the-day">
