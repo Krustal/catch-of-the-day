@@ -21,6 +21,7 @@ export default class App extends React.Component {
     this.addToOrder = this.addToOrder.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.componentWillUpdate = this.componentWillUpdate.bind(this);
+    this.handleInventoryChange = this.handleInventoryChange.bind(this);
   }
 
   componentDidMount() {
@@ -50,9 +51,9 @@ export default class App extends React.Component {
           </ul>
         </div>
         <Order fishes={this.state.fishes} order={this.state.order} />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+        <Inventory fishes={this.state.fishes} addFish={this.addFish} loadSamples={this.loadSamples} handleInventoryChange={this.handleInventoryChange} />
       </div>
-    )
+    );
   }
 
   // TODO: This can probably be improved with immutablejs
@@ -71,7 +72,9 @@ export default class App extends React.Component {
   }
 
   renderFish(key) {
-    return <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
+    return (
+      <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
+    );
   }
 
   addToOrder(key) {
@@ -79,4 +82,9 @@ export default class App extends React.Component {
 
     this.setState({ order: this.state.order });
   }
-};
+
+  handleInventoryChange(fish, field, value) {
+    this.state.fishes[fish][field] = value;
+    this.setState({ fishes: this.state.fishes });
+  }
+}

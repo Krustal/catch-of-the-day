@@ -3,7 +3,7 @@ import { getFunName } from '../helper';
 
 export default class StorePicker extends React.Component {
   constructor() {
-    super()
+    super();
     this.goToStore = this.goToStore.bind(this);
   }
 
@@ -15,7 +15,7 @@ export default class StorePicker extends React.Component {
         <input type="text" ref="storeId" defaultValue={getFunName()} required/>
         <input type="Submit"/>
       </form>
-    )
+    );
   }
 
   goToStore(ev) {

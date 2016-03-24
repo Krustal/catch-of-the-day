@@ -1,3 +1,14 @@
+# Get started
+
+clone repository
+
+```
+cd catch-of-the-day
+npm install
+npm install -g gulp
+gulp
+```
+
 # Dependencies
 
 I'm just going to fill these in as I use them explicitly to maintain sanity. Also,
